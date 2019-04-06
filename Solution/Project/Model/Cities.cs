@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Project.Model
 {
-    public class Coord
+    public class Cities
     {
-        public double lat { get; set; }
-        public double lon { get; set; }
+        [JsonProperty(PropertyName = "cities")]
+        List<City> AllCities { get; set; }
     }
 }

@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 
 namespace Project.Model
 {
-    [JsonObject(Title = "weather")]
     public class WeatherCondition
     {
         [JsonProperty(PropertyName = "description")]

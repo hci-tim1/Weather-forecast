@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Project.Model
 {
@@ -20,23 +16,5 @@ namespace Project.Model
 
         [JsonProperty(PropertyName = "humidity")]
         public int Humidity { get; set; }
-
-        [JsonProperty(PropertyName = "weather")]
-        public WeatherCondition Condition { get; set; }
-
-        private DateTime time;
-        [JsonProperty(PropertyName = "dt_txt")]
-        public DateTime Time
-        {
-            get
-            {
-                return DateTime.Parse(time.ToString("dd/MM/yyyy HH:mm"));
-            }
-
-            set
-            {
-                time = value;
-            }
-        }
     }
 }

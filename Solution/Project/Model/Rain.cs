@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 
 namespace Project.Model
 {
-    public class DailyForecast
+    public class Rain
     {
-        [JsonProperty(PropertyName = "dt_txt")]
-        public DateTime date;
+        [JsonProperty(PropertyName = "3h")]
+        public double Quantity { get; set; }
     }
 }
