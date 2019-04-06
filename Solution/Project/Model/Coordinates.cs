@@ -14,5 +14,11 @@ namespace Project.Model
 
         [JsonProperty(PropertyName = "lon")]
         public double Longitude { get; set; }
+
+        [JsonProperty(PropertyName = "latitude")]
+        private double Latitude1 { set { Latitude = value; } }
+
+        [JsonProperty(PropertyName = "longitude")]
+        private double Longitude1 { set { Longitude = value; } }
     }
 }

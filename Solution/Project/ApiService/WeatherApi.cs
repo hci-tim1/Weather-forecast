@@ -17,6 +17,11 @@ namespace Project.ApiService
 
         static HttpClient client = new HttpClient();
 
+        static async Task<Coordinates> GetGeolocation(string path)
+        {
+            // finish
+        }
+
         static async Task<Forecast5d> GetForecast5dAsync(string path)
         {
             Forecast5d forecast = null;
@@ -34,7 +39,8 @@ namespace Project.ApiService
             string query = baseURL;
             var content = new FormUrlEncodedContent(new KeyValuePair<string, string>[]{
                 new KeyValuePair<string, string>("id", ID.ToString()),
-                new KeyValuePair<string, string>("APPID", apiKey)
+                new KeyValuePair<string, string>("APPID", apiKey),
+                new KeyValuePair<string, string>("units", "metric")
             });
             query += content.ReadAsStringAsync().Result;
             
