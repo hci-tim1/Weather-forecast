@@ -19,3 +19,24 @@ D:\Fakultet\III godina\II semestar\Interakcija covek racunar\Weather-forecast\So
 D:\Fakultet\III godina\II semestar\Interakcija covek racunar\Weather-forecast\Solution\Project\obj\Debug\Project.csproj.CopyComplete
 D:\Fakultet\III godina\II semestar\Interakcija covek racunar\Weather-forecast\Solution\Project\obj\Debug\Project.exe
 D:\Fakultet\III godina\II semestar\Interakcija covek racunar\Weather-forecast\Solution\Project\obj\Debug\Project.pdb
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\bin\Debug\Project.exe.config
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\bin\Debug\Project.exe
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\bin\Debug\Project.pdb
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\bin\Debug\Newtonsoft.Json.dll
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\bin\Debug\System.Net.Http.Formatting.dll
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\bin\Debug\Newtonsoft.Json.pdb
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\bin\Debug\Newtonsoft.Json.xml
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\bin\Debug\System.Net.Http.Formatting.xml
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\Project.csprojAssemblyReference.cache
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\MainWindow.g.cs
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\App.g.cs
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\Project_MarkupCompile.cache
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\Project_MarkupCompile.lref
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\MainWindow.baml
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\Project.g.resources
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\Project.Properties.Resources.resources
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\Project.csproj.GenerateResource.cache
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\Project.csproj.CoreCompileInputs.cache
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\Project.csproj.CopyComplete
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\Project.exe
+E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\Project.pdb

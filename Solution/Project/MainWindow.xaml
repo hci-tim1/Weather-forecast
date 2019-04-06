@@ -5,8 +5,230 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="Aqua">
+    <Window.Resources>
+        <Style x:Key="OnHoverStyle" TargetType="Grid">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <SolidColorBrush Color="White" Opacity="0" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <SolidColorBrush Color="White" Opacity="0.9" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.6*" />
+            <RowDefinition Height="0.4*" />
+        </Grid.RowDefinitions>
         
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.9*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.7*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="20px">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Menu Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <Image Source="Data/icons/star_icon.png" Height="20"/>
+                        </MenuItem.Header>
+                        <MenuItem Header="Grad1"/>
+                    </MenuItem>
+                </Menu>
+                <Menu Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <Image Source="Data/icons/history_icon.png" Height="20"/>
+                        </MenuItem.Header>
+                        <MenuItem Header="Grad1"/>
+                    </MenuItem>
+                </Menu>
+                <Grid  Grid.Row="0" Grid.Column="2" MinHeight="30" Width="Auto">
+                    <TextBox x:Name="SearchTxtBox" VerticalContentAlignment="Center"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" IsHitTestVisible="False" Text="Search..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchTxtBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+                        <TextBlock x:Name="CurrentCity" TextWrapping="Wrap" Text="Current City"/>
+                    </Viewbox>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="CurrentImage" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Viewbox Grid.Row="2" Grid.Column="0">
+                        <TextBlock x:Name="CurrentTemp" TextWrapping="Wrap" Text="15°C"/>
+                    </Viewbox>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="1" Grid.Column="0">
+                        <TextBlock x:Name="CurrentRains" TextWrapping="Wrap" Text="Rains: 50"/>
+                    </Viewbox>
+                    <Viewbox Grid.Row="2" Grid.Column="0">
+                        <TextBlock x:Name="CurrentHumidity" TextWrapping="Wrap" Text="Humidity: 30"/>
+                    </Viewbox>
+                </Grid>
+            </Grid>
+        </Grid>
+        
+        
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Style="{StaticResource OnHoverStyle}">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+                        <TextBlock x:Name="Day1Date" TextWrapping="Wrap" Text="Sat 6."/>
+                    </Viewbox>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day1Image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Viewbox Grid.Row="2" Grid.Column="0">
+                        <TextBlock x:Name="Day1MaxTemp" TextWrapping="Wrap" Text="15°C"/>
+                    </Viewbox>
+                    <Viewbox Grid.Row="3" Grid.Column="0">
+                        <TextBlock x:Name="Day1MinTemp" TextWrapping="Wrap" Text="8°C"/>
+                    </Viewbox>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="1" Style="{StaticResource OnHoverStyle}">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+                        <TextBlock x:Name="Day2Date" TextWrapping="Wrap" Text="Sat 6."/>
+                    </Viewbox>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day2Image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Viewbox Grid.Row="2" Grid.Column="0">
+                        <TextBlock x:Name="Day2MaxTemp" TextWrapping="Wrap" Text="15°C"/>
+                    </Viewbox>
+                    <Viewbox Grid.Row="3" Grid.Column="0">
+                        <TextBlock x:Name="Day2MinTemp" TextWrapping="Wrap" Text="8°C"/>
+                    </Viewbox>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="2" Style="{StaticResource OnHoverStyle}">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+                        <TextBlock x:Name="Day3Date" TextWrapping="Wrap" Text="Sat 6."/>
+                    </Viewbox>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day3Image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Viewbox Grid.Row="2" Grid.Column="0">
+                        <TextBlock x:Name="Day3MaxTemp" TextWrapping="Wrap" Text="15°C"/>
+                    </Viewbox>
+                    <Viewbox Grid.Row="3" Grid.Column="0">
+                        <TextBlock x:Name="Day3MinTemp" TextWrapping="Wrap" Text="8°C"/>
+                    </Viewbox>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="3" Style="{StaticResource OnHoverStyle}">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+                        <TextBlock x:Name="Day4Date" TextWrapping="Wrap" Text="Sat 6."/>
+                    </Viewbox>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day4Image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Viewbox Grid.Row="2" Grid.Column="0">
+                        <TextBlock x:Name="Day4MaxTemp" TextWrapping="Wrap" Text="15°C"/>
+                    </Viewbox>
+                    <Viewbox Grid.Row="3" Grid.Column="0">
+                        <TextBlock x:Name="Day4MinTemp" TextWrapping="Wrap" Text="8°C"/>
+                    </Viewbox>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="4" Style="{StaticResource OnHoverStyle}">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+                        <TextBlock x:Name="Day5Date" TextWrapping="Wrap" Text="Sat 6."/>
+                    </Viewbox>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day5Image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Viewbox Grid.Row="2" Grid.Column="0">
+                        <TextBlock x:Name="Day5MaxTemp" TextWrapping="Wrap" Text="15°C"/>
+                    </Viewbox>
+                    <Viewbox Grid.Row="3" Grid.Column="0">
+                        <TextBlock x:Name="Day5MinTemp" TextWrapping="Wrap" Text="8°C"/>
+                    </Viewbox>
+                </Grid>
+            </Grid>
+
+        </Grid>
     </Grid>
 </Window>

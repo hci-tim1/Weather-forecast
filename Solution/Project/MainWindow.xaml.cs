@@ -69,9 +69,9 @@ namespace Project
         public MainWindow()
         {
             InitializeComponent();
-            ReadAllCities();
-            CurrentCityId = 524901; // presenter should set currentCityId when user selects city, and call start thread
-            StartThread();
+            //ReadAllCities();
+            //CurrentCityId = 524901; // presenter should set currentCityId when user selects city, and call start thread
+            //StartThread();
         }
     }
 }
