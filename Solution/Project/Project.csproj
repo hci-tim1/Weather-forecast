@@ -73,6 +73,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="DetailedViews\Day3View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DetailedViews\Day4View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DetailedViews\Day5View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DetailedViews\Day2View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DetailedViews\Day1View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,6 +101,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DetailedViews\Day3View.xaml.cs">
+      <DependentUpon>Day3View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DetailedViews\Day4View.xaml.cs">
+      <DependentUpon>Day4View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DetailedViews\Day5View.xaml.cs">
+      <DependentUpon>Day5View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DetailedViews\Day2View.xaml.cs">
+      <DependentUpon>Day2View.xaml</DependentUpon>
     </Compile>
     <Compile Include="DetailedViews\Day1View.xaml.cs">
       <DependentUpon>Day1View.xaml</DependentUpon>
@@ -131,6 +159,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Data\icons\01d.png" />
     <Resource Include="Data\icons\01n.png" />
     <Resource Include="Data\icons\02d.png" />
@@ -149,15 +180,13 @@
     <Resource Include="Data\icons\13n.png" />
     <Resource Include="Data\icons\50d.png" />
     <Resource Include="Data\icons\50n.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Data\icons\star_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Data\icons\history_icon.png" />
+    <Resource Include="Data\icons\refresh_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
+    <Resource Include="Data\icons\emptystar_icon.png" />
+    <Resource Include="Data\icons\fullstarsmall_icon.png" />
+    <Resource Include="Data\icons\fullstar_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

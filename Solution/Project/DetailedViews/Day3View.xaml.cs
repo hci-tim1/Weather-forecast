@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Project.DetailedViews
 {
     /// <summary>
-    /// Interaction logic for Day1View.xaml
+    /// Interaction logic for Day3View.xaml
     /// </summary>
-    public partial class Day1View : Window
+    public partial class Day3View : Window
     {
-        public Day1View()
+        public Day3View()
         {
             InitializeComponent();
         }

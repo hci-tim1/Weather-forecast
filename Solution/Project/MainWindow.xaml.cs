@@ -18,6 +18,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using Project.DetailedViews;
 
 namespace Project
 {
@@ -27,6 +28,12 @@ namespace Project
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private Forecast5d _forecast;
+        private Day1View day1View = new Day1View();
+        private Day2View day2View = new Day2View();
+        private Day3View day3View = new Day3View();
+        private Day4View day4View = new Day4View();
+        private Day5View day5View = new Day5View();
+
         public Forecast5d Forecast
         {
             get
@@ -128,9 +135,9 @@ namespace Project
 
         private void ReadAllCities()
         {
-            string path = "C:\\Users\\Danijel\\Documents\\GitHub\\Weather-forecast\\Solution\\Project\\Data\\cities.json";
+            string path = "../../Data/cities.json";
             // ko zna kako se namesta relative path u odnosu na projekat, nek izvoli
-            using(StreamReader sr = new StreamReader(path))
+            using (StreamReader sr = new StreamReader(path))
             {
                 string json = sr.ReadToEnd();
                 Cities = JsonConvert.DeserializeObject<Cities>(json);
@@ -139,12 +146,67 @@ namespace Project
 
         public MainWindow()
         {
+            InitializeComponent();
             ReadAllCities();
             CurrentCityCoords = WeatherApi.GetGeolocation().GetAwaiter().GetResult();
             CurrentCityId = 524901; // presenter should set city id or coordinates, and call start thread 
             DataContext = this;
-            InitializeComponent();
             StartThread(true);
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            day1View.Hide();
+            day2View.Hide();
+            day3View.Hide();
+            day4View.Hide();
+            day5View.Hide();
+
+            day1View.Show();
+        }
+
+        private void Grid_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            day1View.Hide();
+            day2View.Hide();
+            day3View.Hide();
+            day4View.Hide();
+            day5View.Hide();
+
+            day2View.Show();
+        }
+
+        private void Grid_MouseDown_2(object sender, MouseButtonEventArgs e)
+        {
+            day1View.Hide();
+            day2View.Hide();
+            day3View.Hide();
+            day4View.Hide();
+            day5View.Hide();
+
+            day3View.Show();
+        }
+
+        private void Grid_MouseDown_3(object sender, MouseButtonEventArgs e)
+        {
+            day1View.Hide();
+            day2View.Hide();
+            day3View.Hide();
+            day4View.Hide();
+            day5View.Hide();
+
+            day4View.Show();
+        }
+
+        private void Grid_MouseDown_4(object sender, MouseButtonEventArgs e)
+        {
+            day1View.Hide();
+            day2View.Hide();
+            day3View.Hide();
+            day4View.Hide();
+            day5View.Hide();
+
+            day5View.Show();
         }
     }
 }
