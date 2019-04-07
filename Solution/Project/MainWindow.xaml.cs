@@ -27,29 +27,59 @@ namespace Project
     {
         public Forecast5d Forecast { get; set; }
         public int CurrentCityId { get; set; }
+        public Coordinates CurrentCityCoords { get; set; }
         public Thread DataFetchThread { get; set; }
         public Cities Cities { get; set; }
 
-        public void StartThread()
+        public void StartThread(bool coordinates)
         {
             if(DataFetchThread != null)
             {
                 DataFetchThread.Abort();
             }
 
-            DataFetchThread = new Thread(DoWork)
+            DataFetchThread = new Thread(new ParameterizedThreadStart(DoWork))
             {
                 IsBackground = true
             };
 
-            DataFetchThread.Start();
+            if (coordinates)
+            {
+                DataFetchThread.Start(CurrentCityCoords);
+            }
+            else
+            {
+                DataFetchThread.Start(CurrentCityId);
+            }
         }
 
-        private void DoWork()
+        private void DoWork(object o)
+        {
+            if(o is int)
+            {
+                RunWithID((int)o);
+            }
+            else
+            {
+                RunWithCoords((Coordinates)o);
+            }
+        }
+
+        private void RunWithID(int ID)
         {
             while (true)
             {
-                Forecast = WeatherApi.RunAsync(CurrentCityId).GetAwaiter().GetResult();
+                Forecast = WeatherApi.RunAsync(ID).GetAwaiter().GetResult();
+                Console.WriteLine(Forecast);
+                Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
+            }
+        }
+
+        private void RunWithCoords(Coordinates coords)
+        {
+            while (true)
+            {
+                Forecast = WeatherApi.RunAsync(coords).GetAwaiter().GetResult();
                 Console.WriteLine(Forecast);
                 Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
             }
@@ -70,8 +100,9 @@ namespace Project
         {
             InitializeComponent();
             ReadAllCities();
-            CurrentCityId = 524901; // presenter should set currentCityId when user selects city, and call start thread
-            StartThread();
+            CurrentCityCoords = WeatherApi.GetGeolocation().GetAwaiter().GetResult();
+            CurrentCityId = 524901; // presenter should set city id or coordinates, and call start thread
+            StartThread(true);
         }
     }
 }
