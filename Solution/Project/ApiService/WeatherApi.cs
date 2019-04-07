@@ -7,6 +7,7 @@ using System.Net.Http;
 using Project.Model;
 using System.Net.Http.Headers;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace Project.ApiService
 {
@@ -20,12 +21,13 @@ namespace Project.ApiService
         public static async Task<Coordinates> GetGeolocation()
         {
             Coordinates coordinates = null;
-
+            string coords;
             HttpResponseMessage response = client.GetAsync(geoURL).Result;
 
             if (response.IsSuccessStatusCode)
             {
-                coordinates = await response.Content.ReadAsAsync<Coordinates>();// convert from GZip
+                coords = await response.Content.ReadAsStringAsync();
+                coordinates = JsonConvert.DeserializeObject<Coordinates>(coords);
             }
             return coordinates;
         }
