@@ -14,5 +14,17 @@ namespace Project.Model
 
         [JsonProperty(PropertyName = "icon")]
         public string IconID { get; set; }
+
+        public string Icon
+        {
+            get
+            {
+                return "Data/Icons/" + IconID + ".png";
+            }
+            set
+            {
+                Icon = value;
+            }
+        }
     }
 }

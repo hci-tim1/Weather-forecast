@@ -17,19 +17,60 @@ using System.Threading;
 using System.IO;
 using Newtonsoft.Json;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace Project
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        public Forecast5d Forecast { get; set; }
+        private Forecast5d _forecast;
+        public Forecast5d Forecast
+        {
+            get
+            {
+                return _forecast;
+            }
+            set
+            {
+                if (value != _forecast)
+                {
+                    _forecast = value;
+                    OnPropertyChanged("Forecast");
+                }
+            }
+        }
         public int CurrentCityId { get; set; }
         public Coordinates CurrentCityCoords { get; set; }
         public Thread DataFetchThread { get; set; }
-        public Cities Cities { get; set; }
+
+        private Cities _cities;
+        public Cities Cities
+        {
+            get
+            {
+                return _cities;
+            }
+            set
+            {
+                if (value != _cities)
+                {
+                    _cities = value;
+                    OnPropertyChanged("Cities");
+                }
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public void StartThread(bool coordinates)
         {
@@ -70,7 +111,7 @@ namespace Project
             while (true)
             {
                 Forecast = WeatherApi.RunAsync(ID).GetAwaiter().GetResult();
-                Console.WriteLine(Forecast);
+                Console.WriteLine(Forecast.City.Name);
                 Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
             }
         }
@@ -80,14 +121,14 @@ namespace Project
             while (true)
             {
                 Forecast = WeatherApi.RunAsync(coords).GetAwaiter().GetResult();
-                Console.WriteLine(Forecast);
+                Console.WriteLine(Forecast.City.Name);
                 Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
             }
         }
 
         private void ReadAllCities()
         {
-            string path = "D:\\Fakultet\\III godina\\II semestar\\Interakcija covek racunar\\Weather-forecast\\Solution\\Project\\Data\\cities.json";
+            string path = "C:\\Users\\Danijel\\Documents\\GitHub\\Weather-forecast\\Solution\\Project\\Data\\cities.json";
             // ko zna kako se namesta relative path u odnosu na projekat, nek izvoli
             using(StreamReader sr = new StreamReader(path))
             {
@@ -98,10 +139,11 @@ namespace Project
 
         public MainWindow()
         {
-            InitializeComponent();
             ReadAllCities();
             CurrentCityCoords = WeatherApi.GetGeolocation().GetAwaiter().GetResult();
-            CurrentCityId = 524901; // presenter should set city id or coordinates, and call start thread
+            CurrentCityId = 524901; // presenter should set city id or coordinates, and call start thread 
+            DataContext = this;
+            InitializeComponent();
             StartThread(true);
         }
     }

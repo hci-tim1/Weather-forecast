@@ -91,11 +91,19 @@
                         <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
                     <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
-                        <TextBlock x:Name="CurrentCity" TextWrapping="Wrap" Text="Current City"/>
+                        <TextBlock x:Name="CurrentCity" TextWrapping="Wrap" Text="{Binding Path=Forecast.City.Name}"/>
                     </Viewbox>
-                    <Image Grid.Row="1" Grid.Column="0" x:Name="CurrentImage" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="CurrentImage" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Image.Source>
+                            <Binding Path="Forecast.Forecast3hrs[0].Conditions[0].Icon"/>
+                        </Image.Source>
+                    </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
-                        <TextBlock x:Name="CurrentTemp" TextWrapping="Wrap" Text="15°C"/>
+                        <TextBlock x:Name="CurrentTemp" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.Forecast3hrs[0].Parameters.CurrentTemperature" StringFormat="#.#°C"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                 </Grid>
             </Grid>
@@ -108,10 +116,18 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Viewbox Grid.Row="1" Grid.Column="0">
-                        <TextBlock x:Name="CurrentRains" TextWrapping="Wrap" Text="Rains: 50"/>
+                        <TextBlock x:Name="CurrentRains" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.FirstDay.Rain.Quantity" FallbackValue="Rain: 0 cm" StringFormat="Rain: {0} cm"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="2" Grid.Column="0">
-                        <TextBlock x:Name="CurrentHumidity" TextWrapping="Wrap" Text="Humidity: 30"/>
+                        <TextBlock x:Name="CurrentHumidity" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.Forecast3hrs[0].Parameters.Humidity" StringFormat="Humidity: {0}%"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                 </Grid>
             </Grid>
@@ -136,14 +152,33 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
-                        <TextBlock x:Name="Day1Date" TextWrapping="Wrap" Text="Sat 6."/>
+                        <TextBlock x:Name="Day1Date" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}.">
+                                    <Binding Path="Forecast.FirstDay.Day"/>
+                                    <Binding Path="Forecast.FirstDay.DayNumber"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
-                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day1Image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day1Image" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Image.Source>
+                            <Binding Path="Forecast.FirstDay.Conditions[0].Icon"/>
+                        </Image.Source>
+                    </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
-                        <TextBlock x:Name="Day1MaxTemp" TextWrapping="Wrap" Text="15°C"/>
+                        <TextBlock x:Name="Day1MaxTemp" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.MaxTemperatureDay1" StringFormat="#.#°C"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="3" Grid.Column="0">
-                        <TextBlock x:Name="Day1MinTemp" TextWrapping="Wrap" Text="8°C"/>
+                        <TextBlock x:Name="Day1MinTemp" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.MinTemperatureDay1" StringFormat="#.#°C"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                 </Grid>
             </Grid>
@@ -157,14 +192,33 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
-                        <TextBlock x:Name="Day2Date" TextWrapping="Wrap" Text="Sat 6."/>
+                        <TextBlock x:Name="Day2Date" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}.">
+                                    <Binding Path="Forecast.SecondDay.Day"/>
+                                    <Binding Path="Forecast.SecondDay.DayNumber"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
-                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day2Image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day2Image" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Image.Source>
+                            <Binding Path="Forecast.SecondDay.Conditions[0].Icon"/>
+                        </Image.Source>
+                    </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
-                        <TextBlock x:Name="Day2MaxTemp" TextWrapping="Wrap" Text="15°C"/>
+                        <TextBlock x:Name="Day2MaxTemp" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.MaxTemperatureDay2" StringFormat="#.#°C"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="3" Grid.Column="0">
-                        <TextBlock x:Name="Day2MinTemp" TextWrapping="Wrap" Text="8°C"/>
+                        <TextBlock x:Name="Day2MinTemp" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.MinTemperatureDay2" StringFormat="#.#°C"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                 </Grid>
             </Grid>
@@ -178,14 +232,33 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
-                        <TextBlock x:Name="Day3Date" TextWrapping="Wrap" Text="Sat 6."/>
+                        <TextBlock x:Name="Day3Date" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}.">
+                                    <Binding Path="Forecast.ThirdDay.Day"/>
+                                    <Binding Path="Forecast.ThirdDay.DayNumber"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
-                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day3Image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day3Image" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Image.Source>
+                            <Binding Path="Forecast.ThirdDay.Conditions[0].Icon"/>
+                        </Image.Source>
+                    </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
-                        <TextBlock x:Name="Day3MaxTemp" TextWrapping="Wrap" Text="15°C"/>
+                        <TextBlock x:Name="Day3MaxTemp" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.MaxTemperatureDay3" StringFormat="#.#°C"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="3" Grid.Column="0">
-                        <TextBlock x:Name="Day3MinTemp" TextWrapping="Wrap" Text="8°C"/>
+                        <TextBlock x:Name="Day3MinTemp" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.MinTemperatureDay3" StringFormat="#.#°C"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                 </Grid>
             </Grid>
@@ -199,14 +272,33 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
-                        <TextBlock x:Name="Day4Date" TextWrapping="Wrap" Text="Sat 6."/>
+                        <TextBlock x:Name="Day4Date" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}.">
+                                    <Binding Path="Forecast.FourthDay.Day"/>
+                                    <Binding Path="Forecast.FourthDay.DayNumber"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
-                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day4Image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day4Image" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Image.Source>
+                            <Binding Path="Forecast.FourthDay.Conditions[0].Icon"/>
+                        </Image.Source>
+                    </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
-                        <TextBlock x:Name="Day4MaxTemp" TextWrapping="Wrap" Text="15°C"/>
+                        <TextBlock x:Name="Day4MaxTemp" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.MaxTemperatureDay4" StringFormat="#.#°C"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="3" Grid.Column="0">
-                        <TextBlock x:Name="Day4MinTemp" TextWrapping="Wrap" Text="8°C"/>
+                        <TextBlock x:Name="Day4MinTemp" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.MinTemperatureDay4" StringFormat="#.#°C"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                 </Grid>
             </Grid>
@@ -220,14 +312,33 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
-                        <TextBlock x:Name="Day5Date" TextWrapping="Wrap" Text="Sat 6."/>
+                        <TextBlock x:Name="Day5Date" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}.">
+                                    <Binding Path="Forecast.FifthDay.Day"/>
+                                    <Binding Path="Forecast.FifthDay.DayNumber"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
-                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day5Image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Data/Icons/01d.png"/>
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="Day5Image" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Image.Source>
+                            <Binding Path="Forecast.FifthDay.Conditions[0].Icon"/>
+                        </Image.Source>
+                    </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
-                        <TextBlock x:Name="Day5MaxTemp" TextWrapping="Wrap" Text="15°C"/>
+                        <TextBlock x:Name="Day5MaxTemp" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.MaxTemperatureDay5" StringFormat="#.#°C"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="3" Grid.Column="0">
-                        <TextBlock x:Name="Day5MinTemp" TextWrapping="Wrap" Text="8°C"/>
+                        <TextBlock x:Name="Day5MinTemp" TextWrapping="Wrap">
+                            <TextBlock.Text>
+                                <Binding Path="Forecast.MinTemperatureDay5" StringFormat="#.#°C"/>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Viewbox>
                 </Grid>
             </Grid>

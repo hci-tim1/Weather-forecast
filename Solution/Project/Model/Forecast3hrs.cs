@@ -13,7 +13,10 @@ namespace Project.Model
         public List<WeatherCondition> Conditions { get; set; }
 
         [JsonProperty(PropertyName = "rain")]
-        public Rain Rain { get; set; }
+        public Rain Rain
+        {
+            get; set;
+        }
 
         [JsonProperty(PropertyName = "main")]
         public WeatherParameters Parameters { get; set; }
@@ -30,6 +33,32 @@ namespace Project.Model
             set
             {
                 time = value;
+            }
+        }
+
+        private string _day;
+        public string Day
+        {
+            get
+            {
+                return time.DayOfWeek.ToString().Substring(0, 3);
+            }
+            set
+            {
+                _day = value;
+            }
+        }
+
+        private string _dayNumber;
+        public string DayNumber
+        {
+            get
+            {
+                return time.Day.ToString();
+            }
+            set
+            {
+                _dayNumber = value;
             }
         }
     }
