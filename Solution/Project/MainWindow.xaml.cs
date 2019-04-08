@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using Project.DetailedViews;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 
 namespace Project
 {
@@ -265,7 +266,6 @@ namespace Project
                     History = new List<string>(History);
                 }
                 RefreshDate = DateTime.Now.ToString(@"HH\:mm");
-                Console.WriteLine(Forecast.City.Name);
                 Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
             }
         }
@@ -286,7 +286,6 @@ namespace Project
                     History = new List<string>(History);
                 }
                 RefreshDate = DateTime.Now.ToString(@"HH\:mm");
-                Console.WriteLine(Forecast.City.Name);
                 Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
             }
         }
@@ -310,19 +309,7 @@ namespace Project
             {
                 string favorites = sr.ReadToEnd();
                 Favorites = JsonConvert.DeserializeObject<Cities>(favorites);
-                Console.Write("asd");
             }
-        }
-        
-        public MainWindow()
-        {
-            InitializeComponent();
-            ReadAllCities();
-            ReadFavorites();
-            CurrentCityCoords = WeatherApi.GetGeolocation().GetAwaiter().GetResult();
-            CurrentCityId = 524901; // presenter should set city id or coordinates, and call start thread
-            DataContext = this;
-            StartThread(true);
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -334,6 +321,7 @@ namespace Project
                 day3View.Hide();
                 day4View.Hide();
                 day5View.Hide();
+
                 day1View.Show();
             });
         }
@@ -455,6 +443,27 @@ namespace Project
                     return;
                 }
             }
-        }  
+        }
+
+        public MainWindow()
+        {
+            ShowWindow(GetConsoleWindow(), SW_HIDE);
+            InitializeComponent();
+            ReadAllCities();
+            ReadFavorites();
+            CurrentCityCoords = WeatherApi.GetGeolocation().GetAwaiter().GetResult();
+            CurrentCityId = 524901; // presenter should set city id or coordinates, and call start thread
+            DataContext = this;
+            StartThread(true);
+        }
+
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        const int SW_HIDE = 0;
+        const int SW_SHOW = 5;
     }
 }

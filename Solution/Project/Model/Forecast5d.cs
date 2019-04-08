@@ -143,7 +143,7 @@ namespace Project.Model
         public List<double> GetFirstDayTemp()
         {
             var firstDay = Forecast3hrs.Take(firstDayEnd);
-            List<double> dayTemp = firstDay.Select(d => d.Parameters.CurrentTemperature).ToList();
+            List<double> dayTemp = firstDay.Select(d => d.Parameters.MaxTemperature).ToList();
             return dayTemp;
         }
 
@@ -157,7 +157,7 @@ namespace Project.Model
         public List<double> GetSecondDayTemp()
         {
             var secondDay = Forecast3hrs.Skip(firstDayEnd).Take(secondDayEnd - firstDayEnd);
-            List<double> dayTemp = secondDay.Select(d => d.Parameters.CurrentTemperature).ToList();
+            List<double> dayTemp = secondDay.Select(d => d.Parameters.MaxTemperature).ToList();
             return dayTemp;
         }
 
@@ -171,7 +171,7 @@ namespace Project.Model
         public List<double> GetThirdDayTemp()
         {
             var thirdDay = Forecast3hrs.Skip(secondDayEnd).Take(thirdDayEnd - secondDayEnd);
-            List<double> dayTemp = thirdDay.Select(d => d.Parameters.CurrentTemperature).ToList();
+            List<double> dayTemp = thirdDay.Select(d => d.Parameters.MaxTemperature).ToList();
             return dayTemp;
         }
 
@@ -185,7 +185,7 @@ namespace Project.Model
         public List<double> GetFourthDayTemp()
         {
             var fourthDay = Forecast3hrs.Skip(thirdDayEnd).Take(fourthDayEnd - thirdDayEnd);
-            List<double> dayTemp = fourthDay.Select(d => d.Parameters.CurrentTemperature).ToList();
+            List<double> dayTemp = fourthDay.Select(d => d.Parameters.MaxTemperature).ToList();
             return dayTemp;
         }
 
@@ -199,7 +199,7 @@ namespace Project.Model
         public List<double> GetFifthDayTemp()
         {
             var fifthDay = Forecast3hrs.Skip(fourthDayEnd).Take(40 - fourthDayEnd + 1);
-            List<double> dayTemp = fifthDay.Select(d => d.Parameters.CurrentTemperature).ToList();
+            List<double> dayTemp = fifthDay.Select(d => d.Parameters.MaxTemperature).ToList();
             return dayTemp;
         }
 
