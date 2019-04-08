@@ -54,6 +54,9 @@
                         <MenuItem.Header>
                             <Image Source="Data/icons/fullstarsmall_icon.png"/>
                         </MenuItem.Header>
+                        <MenuItem.ToolTip>
+                            Favorite places
+                        </MenuItem.ToolTip>
                         <MenuItem Header="Grad1"/>
                     </MenuItem>
                 </Menu>
@@ -62,6 +65,9 @@
                         <MenuItem.Header>
                             <Image Source="Data/icons/history_icon.png"/>
                         </MenuItem.Header>
+                        <MenuItem.ToolTip>
+                            History
+                        </MenuItem.ToolTip>
                         <MenuItem Header="Grad1"/>
                     </MenuItem>
                 </Menu>
@@ -97,6 +103,9 @@
                         <Image.Source>
                             <Binding Path="Forecast.Forecast3hrs[0].Conditions[0].Icon"/>
                         </Image.Source>
+                        <Image.ToolTip>
+                            <Binding Path="Forecast.Forecast3hrs[0].Conditions[0].Description"/>
+                        </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="CurrentTemp" TextWrapping="Wrap">
@@ -117,9 +126,17 @@
                         <RowDefinition Height="0.5*" />
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" HorizontalAlignment="Left" Style="{StaticResource OnHoverStyle}">
-                        <Image HorizontalAlignment="Left" Source="Data/icons/emptystar_icon.png"/>
+                        <Image HorizontalAlignment="Left">
+                            <Image.Source>
+                                Data/icons/emptystar_icon.png
+                                <!-- or Data/icons/fullstar_icon.png-->
+                            </Image.Source>
+                            <Image.ToolTip>
+                                Add to favorites
+                                <!-- or Remove from favorites-->
+                            </Image.ToolTip>
+                        </Image>
                     </Grid>
-                    <!-- or Data/icons/fullstar_icon.png-->
                     <Viewbox Grid.Row="1" Grid.Column="0">
                         <TextBlock x:Name="CurrentRains" TextWrapping="Wrap">
                             <TextBlock.Text>
@@ -189,6 +206,9 @@
                         <Image.Source>
                             <Binding Path="Forecast.FirstDay.Conditions[0].Icon"/>
                         </Image.Source>
+                        <Image.ToolTip>
+                            <Binding Path="Forecast.FirstDay.Conditions[0].Description"/>
+                        </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="Day1MaxTemp" TextWrapping="Wrap">
@@ -229,6 +249,9 @@
                         <Image.Source>
                             <Binding Path="Forecast.SecondDay.Conditions[0].Icon"/>
                         </Image.Source>
+                        <Image.ToolTip>
+                            <Binding Path="Forecast.SecondDay.Conditions[0].Description"/>
+                        </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="Day2MaxTemp" TextWrapping="Wrap">
@@ -269,6 +292,9 @@
                         <Image.Source>
                             <Binding Path="Forecast.ThirdDay.Conditions[0].Icon"/>
                         </Image.Source>
+                        <Image.ToolTip>
+                            <Binding Path="Forecast.ThirdDay.Conditions[0].Description"/>
+                        </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="Day3MaxTemp" TextWrapping="Wrap">
@@ -309,6 +335,9 @@
                         <Image.Source>
                             <Binding Path="Forecast.FourthDay.Conditions[0].Icon"/>
                         </Image.Source>
+                        <Image.ToolTip>
+                            <Binding Path="Forecast.FourthDay.Conditions[0].Description"/>
+                        </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="Day4MaxTemp" TextWrapping="Wrap">
@@ -349,6 +378,9 @@
                         <Image.Source>
                             <Binding Path="Forecast.FifthDay.Conditions[0].Icon"/>
                         </Image.Source>
+                        <Image.ToolTip>
+                            <Binding Path="Forecast.FifthDay.Conditions[0].Description"/>
+                        </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="Day5MaxTemp" TextWrapping="Wrap">
