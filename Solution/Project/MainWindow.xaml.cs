@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using Project.DetailedViews;
+using System.Collections.ObjectModel;
 
 namespace Project
 {
@@ -26,14 +27,14 @@ namespace Project
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
-    {
-        private Forecast5d _forecast;
+    { 
         private Day1View day1View = new Day1View();
         private Day2View day2View = new Day2View();
         private Day3View day3View = new Day3View();
         private Day4View day4View = new Day4View();
         private Day5View day5View = new Day5View();
 
+        private Forecast5d _forecast;
         public Forecast5d Forecast
         {
             get
@@ -53,6 +54,23 @@ namespace Project
         public Coordinates CurrentCityCoords { get; set; }
         public Thread DataFetchThread { get; set; }
 
+        private string _refreshDate;
+        public string RefreshDate
+        {
+            get
+            {
+                return _refreshDate;
+            }
+            set
+            {
+                if (value != _refreshDate)
+                {
+                    _refreshDate = value;
+                    OnPropertyChanged("RefreshDate");
+                }
+            }
+        }
+
         private Cities _cities;
         public Cities Cities
         {
@@ -68,6 +86,28 @@ namespace Project
                     OnPropertyChanged("Cities");
                 }
             }
+        }
+
+        private Cities _favorites;
+        public Cities Favorites
+        {
+            get
+            {
+                return _favorites;
+            }
+            set
+            {
+                if (value != _favorites)
+                {
+                    _favorites = value;
+                    OnPropertyChanged("Favorites");
+                }
+            }
+        }
+
+        public ObservableCollection<string> History
+        {
+            get; set;
         }
 
         protected virtual void OnPropertyChanged(string name)
@@ -118,6 +158,7 @@ namespace Project
             while (true)
             {
                 Forecast = WeatherApi.RunAsync(ID).GetAwaiter().GetResult();
+                RefreshDate = DateTime.Now.ToString(@"HH\:mm");
                 Console.WriteLine(Forecast.City.Name);
                 Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
             }
@@ -128,6 +169,7 @@ namespace Project
             while (true)
             {
                 Forecast = WeatherApi.RunAsync(coords).GetAwaiter().GetResult();
+                RefreshDate = DateTime.Now.ToString(@"HH\:mm");
                 Console.WriteLine(Forecast.City.Name);
                 Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
             }
@@ -144,12 +186,25 @@ namespace Project
             }
         }
 
+        private void ReadFavorites()
+        {
+            string path = "../../Data/favorites.json";
+            // ko zna kako se namesta relative path u odnosu na projekat, nek izvoli
+            using (StreamReader sr = new StreamReader(path))
+            {
+                string favorites = sr.ReadToEnd();
+                Favorites = JsonConvert.DeserializeObject<Cities>(favorites);
+                Console.Write("asd");
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             ReadAllCities();
+            ReadFavorites();
             CurrentCityCoords = WeatherApi.GetGeolocation().GetAwaiter().GetResult();
-            CurrentCityId = 524901; // presenter should set city id or coordinates, and call start thread 
+            CurrentCityId = 524901; // presenter should set city id or coordinates, and call start thread
             DataContext = this;
             StartThread(true);
         }
@@ -207,6 +262,11 @@ namespace Project
             day5View.Hide();
 
             day5View.Show();
+        }
+
+        private void Grid_MouseDown_5(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

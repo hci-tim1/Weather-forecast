@@ -87,3 +87,11 @@ E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 
 E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\DetailedViews\Day4View.baml
 E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\DetailedViews\Day5View.baml
 E:\Mi\Alex\Faks\Moji predmeti\Sesti semestar\Interakcija covek racunar\Projekat 1\Weather-forecast\Solution\Project\obj\Debug\DetailedViews\Day2View.baml
+C:\Users\Danijel\Documents\GitHub\Weather-forecast\Solution\Project\obj\Debug\DetailedViews\Day3View.g.cs
+C:\Users\Danijel\Documents\GitHub\Weather-forecast\Solution\Project\obj\Debug\DetailedViews\Day4View.g.cs
+C:\Users\Danijel\Documents\GitHub\Weather-forecast\Solution\Project\obj\Debug\DetailedViews\Day5View.g.cs
+C:\Users\Danijel\Documents\GitHub\Weather-forecast\Solution\Project\obj\Debug\DetailedViews\Day2View.g.cs
+C:\Users\Danijel\Documents\GitHub\Weather-forecast\Solution\Project\obj\Debug\DetailedViews\Day3View.baml
+C:\Users\Danijel\Documents\GitHub\Weather-forecast\Solution\Project\obj\Debug\DetailedViews\Day4View.baml
+C:\Users\Danijel\Documents\GitHub\Weather-forecast\Solution\Project\obj\Debug\DetailedViews\Day5View.baml
+C:\Users\Danijel\Documents\GitHub\Weather-forecast\Solution\Project\obj\Debug\DetailedViews\Day2View.baml

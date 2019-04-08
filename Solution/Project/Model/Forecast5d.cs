@@ -10,8 +10,38 @@ namespace Project.Model
 {
     public class Forecast5d : INotifyPropertyChanged
     {
+        private List<Forecast3hrs> _forecast3hrs;
         [JsonProperty(PropertyName = "list")]
-        public List<Forecast3hrs> Forecast3hrs { get; set; }
+        public List<Forecast3hrs> Forecast3hrs
+        {
+            get
+            {
+                return _forecast3hrs;
+            }
+            set
+            {
+                if (_forecast3hrs != value)
+                {
+                    _forecast3hrs = value;
+                    OnPropertyChanged("Forecast3hrs");
+                    OnPropertyChanged("MinTemperatureDay1");
+                    OnPropertyChanged("MaxTemperatureDay1");
+                    OnPropertyChanged("MinTemperatureDay2");
+                    OnPropertyChanged("MaxTemperatureDay2");
+                    OnPropertyChanged("MinTemperatureDay3");
+                    OnPropertyChanged("MaxTemperatureDay3");
+                    OnPropertyChanged("MinTemperatureDay4");
+                    OnPropertyChanged("MaxTemperatureDay4");
+                    OnPropertyChanged("MinTemperatureDay5");
+                    OnPropertyChanged("MaxTemperatureDay5");
+                    OnPropertyChanged("FirstDay");
+                    OnPropertyChanged("SecondDay");
+                    OnPropertyChanged("ThirdDay");
+                    OnPropertyChanged("FourthDay");
+                    OnPropertyChanged("FifthDay");
+                }
+            }
+        }
 
         private City _city;
         [JsonProperty(PropertyName = "city")]
@@ -42,6 +72,10 @@ namespace Project.Model
             {
                 return Forecast3hrs[0];
             }
+            set
+            {
+                FirstDay = value;
+            }
         }
 
         public Forecast3hrs SecondDay
@@ -49,6 +83,10 @@ namespace Project.Model
             get
             {
                 return Forecast3hrs[firstDayEnd];
+            }
+            set
+            {
+                SecondDay = value;
             }
         }
 
@@ -58,6 +96,10 @@ namespace Project.Model
             {
                 return Forecast3hrs[secondDayEnd];
             }
+            set
+            {
+                ThirdDay = value;
+            }
         }
 
         public Forecast3hrs FourthDay
@@ -66,6 +108,10 @@ namespace Project.Model
             {
                 return Forecast3hrs[thirdDayEnd];
             }
+            set
+            {
+                FourthDay = value;
+            }
         }
 
         public Forecast3hrs FifthDay
@@ -73,6 +119,10 @@ namespace Project.Model
             get
             {
                 return Forecast3hrs[fourthDayEnd];
+            }
+            set
+            {
+                FifthDay = value;
             }
         }
 
@@ -85,6 +135,10 @@ namespace Project.Model
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Min(f => f.Parameters.MinTemperature);
             }
+            set
+            {
+                MinTemperatureDay1 = value;
+            }
         }
 
         public double MaxTemperatureDay1
@@ -94,6 +148,10 @@ namespace Project.Model
                 int day = Forecast3hrs[0].Time.Day;
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Max(f => f.Parameters.MaxTemperature);
+            }
+            set
+            {
+                MaxTemperatureDay1 = value;
             }
         }
 
@@ -106,6 +164,10 @@ namespace Project.Model
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Min(f => f.Parameters.MinTemperature);
             }
+            set
+            {
+                MinTemperatureDay2 = value;
+            }
         }
 
         public double MaxTemperatureDay2
@@ -115,6 +177,10 @@ namespace Project.Model
                 int day = Forecast3hrs[firstDayEnd].Time.Day;
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Max(f => f.Parameters.MaxTemperature);
+            }
+            set
+            {
+                MaxTemperatureDay2 = value;
             }
         }
 
@@ -127,6 +193,10 @@ namespace Project.Model
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Min(f => f.Parameters.MinTemperature);
             }
+            set
+            {
+                MinTemperatureDay3 = value;
+            }
         }
 
         public double MaxTemperatureDay3
@@ -136,6 +206,10 @@ namespace Project.Model
                 int day = Forecast3hrs[secondDayEnd].Time.Day;
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Max(f => f.Parameters.MaxTemperature);
+            }
+            set
+            {
+                MaxTemperatureDay3 = value;
             }
         }
 
@@ -148,6 +222,10 @@ namespace Project.Model
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Min(f => f.Parameters.MinTemperature);
             }
+            set
+            {
+                MinTemperatureDay4 = value;
+            }
         }
 
         public double MaxTemperatureDay4
@@ -157,6 +235,10 @@ namespace Project.Model
                 int day = Forecast3hrs[thirdDayEnd].Time.Day;
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Max(f => f.Parameters.MaxTemperature);
+            }
+            set
+            {
+                MaxTemperatureDay4 = value;
             }
         }
 
@@ -168,6 +250,10 @@ namespace Project.Model
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Min(f => f.Parameters.MinTemperature);
             }
+            set
+            {
+                MinTemperatureDay5 = value;
+            }
         }
 
         public double MaxTemperatureDay5
@@ -177,6 +263,10 @@ namespace Project.Model
                 int day = Forecast3hrs[fourthDayEnd].Time.Day;
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Max(f => f.Parameters.MaxTemperature);
+            }
+            set
+            {
+                MaxTemperatureDay5 = value;
             }
         }
 

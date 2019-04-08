@@ -50,31 +50,29 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Menu Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <MenuItem>
+                    <MenuItem ItemsSource="{Binding Favorites.Favorites}">
                         <MenuItem.Header>
                             <Image Source="Data/icons/fullstarsmall_icon.png"/>
                         </MenuItem.Header>
                         <MenuItem.ToolTip>
                             Favorite places
                         </MenuItem.ToolTip>
-                        <MenuItem Header="Grad1"/>
                     </MenuItem>
                 </Menu>
                 <Menu Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <MenuItem>
+                    <MenuItem ItemsSource="{Binding History}">
                         <MenuItem.Header>
                             <Image Source="Data/icons/history_icon.png"/>
                         </MenuItem.Header>
                         <MenuItem.ToolTip>
                             History
                         </MenuItem.ToolTip>
-                        <MenuItem Header="Grad1"/>
                     </MenuItem>
                 </Menu>
                 <Grid  Grid.Row="0" Grid.Column="2" MinHeight="30" Width="Auto">
                     <TextBox x:Name="SearchTxtBox" VerticalContentAlignment="Center"
                              Text="{Binding TestText, UpdateSourceTrigger=PropertyChanged}" 
-                             behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding TestItems}"/>
+                             behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding Path=Cities.CitiesNames}"/>
                     <TextBlock Grid.Row="0" Grid.Column="2" IsHitTestVisible="False" Text="Search..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" Foreground="DarkGray">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
@@ -97,20 +95,20 @@
                         <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
                     <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
-                        <TextBlock x:Name="CurrentCity" TextWrapping="Wrap" Text="{Binding Path=Forecast.City.Name}"/>
+                        <TextBlock x:Name="CurrentCity" TextWrapping="Wrap" Text="{Binding Path=Forecast.City.Name, UpdateSourceTrigger=PropertyChanged}"/>
                     </Viewbox>
                     <Image Grid.Row="1" Grid.Column="0" x:Name="CurrentImage" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Image.Source>
-                            <Binding Path="Forecast.Forecast3hrs[0].Conditions[0].Icon"/>
+                            <Binding Path="Forecast.Forecast3hrs[0].Conditions[0].Icon" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.Source>
                         <Image.ToolTip>
-                            <Binding Path="Forecast.Forecast3hrs[0].Conditions[0].Description"/>
+                            <Binding Path="Forecast.Forecast3hrs[0].Conditions[0].Description" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="CurrentTemp" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.Forecast3hrs[0].Parameters.CurrentTemperature" StringFormat="#.#°C"/>
+                                <Binding Path="Forecast.Forecast3hrs[0].Parameters.CurrentTemperature" StringFormat="#.#°C" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
@@ -140,14 +138,14 @@
                     <Viewbox Grid.Row="1" Grid.Column="0">
                         <TextBlock x:Name="CurrentRains" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.FirstDay.Rain.Quantity" FallbackValue="Rain: 0 cm" StringFormat="Rain: {0} cm"/>
+                                <Binding Path="Forecast.FirstDay.Rain.Quantity" FallbackValue="Rain: 0 cm" StringFormat="Rain: {0} cm" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="CurrentHumidity" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.Forecast3hrs[0].Parameters.Humidity" StringFormat="Humidity: {0}%"/>
+                                <Binding Path="Forecast.Forecast3hrs[0].Parameters.Humidity" StringFormat="Humidity: {0}%" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
@@ -160,7 +158,7 @@
                         <Viewbox Grid.Column="0" HorizontalAlignment="Right">
                             <TextBlock x:Name="RefreshTime" TextWrapping="Wrap">
                                 <TextBlock.Text>
-                                    <Binding Path="Forecast.Forecast3hrs[0].Parameters.Humidity" StringFormat="Updated: {0}%"/>
+                                    <Binding Path="RefreshDate" StringFormat="Updated: {0}" UpdateSourceTrigger="PropertyChanged"/>
                                 </TextBlock.Text>
                             </TextBlock>
                         </Viewbox>
@@ -196,31 +194,31 @@
                         <TextBlock x:Name="Day1Date" TextWrapping="Wrap">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} {1}.">
-                                    <Binding Path="Forecast.FirstDay.Day"/>
-                                    <Binding Path="Forecast.FirstDay.DayNumber"/>
+                                    <Binding Path="Forecast.FirstDay.Day" UpdateSourceTrigger="PropertyChanged"/>
+                                    <Binding Path="Forecast.FirstDay.DayNumber" UpdateSourceTrigger="PropertyChanged"/>
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
                     <Image Grid.Row="1" Grid.Column="0" x:Name="Day1Image" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Image.Source>
-                            <Binding Path="Forecast.FirstDay.Conditions[0].Icon"/>
+                            <Binding Path="Forecast.FirstDay.Conditions[0].Icon" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.Source>
                         <Image.ToolTip>
-                            <Binding Path="Forecast.FirstDay.Conditions[0].Description"/>
+                            <Binding Path="Forecast.FirstDay.Conditions[0].Description" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="Day1MaxTemp" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.MaxTemperatureDay1" StringFormat="#.#°C"/>
+                                <Binding Path="Forecast.MaxTemperatureDay1" StringFormat="#.#°C" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="3" Grid.Column="0">
                         <TextBlock x:Name="Day1MinTemp" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.MinTemperatureDay1" StringFormat="#.#°C"/>
+                                <Binding Path="Forecast.MinTemperatureDay1" StringFormat="#.#°C" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
@@ -239,31 +237,31 @@
                         <TextBlock x:Name="Day2Date" TextWrapping="Wrap">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} {1}.">
-                                    <Binding Path="Forecast.SecondDay.Day"/>
-                                    <Binding Path="Forecast.SecondDay.DayNumber"/>
+                                    <Binding Path="Forecast.SecondDay.Day" UpdateSourceTrigger="PropertyChanged"/>
+                                    <Binding Path="Forecast.SecondDay.DayNumber" UpdateSourceTrigger="PropertyChanged"/>
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
                     <Image Grid.Row="1" Grid.Column="0" x:Name="Day2Image" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Image.Source>
-                            <Binding Path="Forecast.SecondDay.Conditions[0].Icon"/>
+                            <Binding Path="Forecast.SecondDay.Conditions[0].Icon" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.Source>
                         <Image.ToolTip>
-                            <Binding Path="Forecast.SecondDay.Conditions[0].Description"/>
+                            <Binding Path="Forecast.SecondDay.Conditions[0].Description" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="Day2MaxTemp" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.MaxTemperatureDay2" StringFormat="#.#°C"/>
+                                <Binding Path="Forecast.MaxTemperatureDay2" StringFormat="#.#°C" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="3" Grid.Column="0">
                         <TextBlock x:Name="Day2MinTemp" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.MinTemperatureDay2" StringFormat="#.#°C"/>
+                                <Binding Path="Forecast.MinTemperatureDay2" StringFormat="#.#°C" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
@@ -282,31 +280,31 @@
                         <TextBlock x:Name="Day3Date" TextWrapping="Wrap">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} {1}.">
-                                    <Binding Path="Forecast.ThirdDay.Day"/>
-                                    <Binding Path="Forecast.ThirdDay.DayNumber"/>
+                                    <Binding Path="Forecast.ThirdDay.Day" UpdateSourceTrigger="PropertyChanged"/>
+                                    <Binding Path="Forecast.ThirdDay.DayNumber" UpdateSourceTrigger="PropertyChanged"/>
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
                     <Image Grid.Row="1" Grid.Column="0" x:Name="Day3Image" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Image.Source>
-                            <Binding Path="Forecast.ThirdDay.Conditions[0].Icon"/>
+                            <Binding Path="Forecast.ThirdDay.Conditions[0].Icon" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.Source>
                         <Image.ToolTip>
-                            <Binding Path="Forecast.ThirdDay.Conditions[0].Description"/>
+                            <Binding Path="Forecast.ThirdDay.Conditions[0].Description" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="Day3MaxTemp" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.MaxTemperatureDay3" StringFormat="#.#°C"/>
+                                <Binding Path="Forecast.MaxTemperatureDay3" StringFormat="#.#°C" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="3" Grid.Column="0">
                         <TextBlock x:Name="Day3MinTemp" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.MinTemperatureDay3" StringFormat="#.#°C"/>
+                                <Binding Path="Forecast.MinTemperatureDay3" StringFormat="#.#°C" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
@@ -325,31 +323,31 @@
                         <TextBlock x:Name="Day4Date" TextWrapping="Wrap">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} {1}.">
-                                    <Binding Path="Forecast.FourthDay.Day"/>
-                                    <Binding Path="Forecast.FourthDay.DayNumber"/>
+                                    <Binding Path="Forecast.FourthDay.Day" UpdateSourceTrigger="PropertyChanged"/>
+                                    <Binding Path="Forecast.FourthDay.DayNumber" UpdateSourceTrigger="PropertyChanged"/>
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
                     <Image Grid.Row="1" Grid.Column="0" x:Name="Day4Image" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Image.Source>
-                            <Binding Path="Forecast.FourthDay.Conditions[0].Icon"/>
+                            <Binding Path="Forecast.FourthDay.Conditions[0].Icon" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.Source>
                         <Image.ToolTip>
-                            <Binding Path="Forecast.FourthDay.Conditions[0].Description"/>
+                            <Binding Path="Forecast.FourthDay.Conditions[0].Description" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="Day4MaxTemp" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.MaxTemperatureDay4" StringFormat="#.#°C"/>
+                                <Binding Path="Forecast.MaxTemperatureDay4" StringFormat="#.#°C" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="3" Grid.Column="0">
                         <TextBlock x:Name="Day4MinTemp" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.MinTemperatureDay4" StringFormat="#.#°C"/>
+                                <Binding Path="Forecast.MinTemperatureDay4" StringFormat="#.#°C" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
@@ -368,31 +366,31 @@
                         <TextBlock x:Name="Day5Date" TextWrapping="Wrap">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} {1}.">
-                                    <Binding Path="Forecast.FifthDay.Day"/>
-                                    <Binding Path="Forecast.FifthDay.DayNumber"/>
+                                    <Binding Path="Forecast.FifthDay.Day" UpdateSourceTrigger="PropertyChanged"/>
+                                    <Binding Path="Forecast.FifthDay.DayNumber" UpdateSourceTrigger="PropertyChanged"/>
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
                     <Image Grid.Row="1" Grid.Column="0" x:Name="Day5Image" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Image.Source>
-                            <Binding Path="Forecast.FifthDay.Conditions[0].Icon"/>
+                            <Binding Path="Forecast.FifthDay.Conditions[0].Icon" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.Source>
                         <Image.ToolTip>
-                            <Binding Path="Forecast.FifthDay.Conditions[0].Description"/>
+                            <Binding Path="Forecast.FifthDay.Conditions[0].Description" UpdateSourceTrigger="PropertyChanged"/>
                         </Image.ToolTip>
                     </Image>
                     <Viewbox Grid.Row="2" Grid.Column="0">
                         <TextBlock x:Name="Day5MaxTemp" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.MaxTemperatureDay5" StringFormat="#.#°C"/>
+                                <Binding Path="Forecast.MaxTemperatureDay5" StringFormat="#.#°C" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
                     <Viewbox Grid.Row="3" Grid.Column="0">
                         <TextBlock x:Name="Day5MinTemp" TextWrapping="Wrap">
                             <TextBlock.Text>
-                                <Binding Path="Forecast.MinTemperatureDay5" StringFormat="#.#°C"/>
+                                <Binding Path="Forecast.MinTemperatureDay5" StringFormat="#.#°C" UpdateSourceTrigger="PropertyChanged"/>
                             </TextBlock.Text>
                         </TextBlock>
                     </Viewbox>
