@@ -425,6 +425,7 @@ namespace Project
             {
                 sw.Write(JsonConvert.SerializeObject(Favorites));
             }
+            Environment.Exit(0);
         }
 
         private void SearchTxtBox_KeyUp(object sender, KeyEventArgs e)
