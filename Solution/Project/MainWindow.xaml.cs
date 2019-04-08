@@ -27,8 +27,8 @@ namespace Project
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
-    { 
-        private Day1View day1View = new Day1View();
+    {
+        private Day1View day1View;
         private Day2View day2View = new Day2View();
         private Day3View day3View = new Day3View();
         private Day4View day4View = new Day4View();
@@ -47,12 +47,95 @@ namespace Project
                 {
                     _forecast = value;
                     OnPropertyChanged("Forecast");
+                    OnPropertyChanged("FavoritesIcon");
+                    OnPropertyChanged("FavoritesTooltip");
+                    var temp = Forecast.GetFirstDayTemp();
+                    var hours = Forecast.GetFirstDayHours();
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        day1View = new Day1View(temp, hours, 
+                            Forecast.FirstDay.Day + " " + Forecast.FirstDay.DayNumber, Forecast.City.Name);
+                    });
+                    temp = Forecast.GetSecondDayTemp();
+                    hours = Forecast.GetSecondDayHours();
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        day2View = new Day2View(temp, hours,
+                            Forecast.SecondDay.Day + " " + Forecast.SecondDay.DayNumber, Forecast.City.Name);
+                    });
+                    temp = Forecast.GetThirdDayTemp();
+                    hours = Forecast.GetThirdDayHours();
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        day3View = new Day3View(temp, hours,
+                            Forecast.ThirdDay.Day + " " + Forecast.ThirdDay.DayNumber, Forecast.City.Name);
+                    });
+                    temp = Forecast.GetFourthDayTemp();
+                    hours = Forecast.GetFourthDayHours();
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        day4View = new Day4View(temp, hours,
+                            Forecast.FourthDay.Day + " " + Forecast.FourthDay.DayNumber, Forecast.City.Name);
+                    });
+                    temp = Forecast.GetFifthDayTemp();
+                    hours = Forecast.GetFifthDayHours();
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        day5View = new Day5View(temp, hours,
+                            Forecast.FifthDay.Day + " " + Forecast.FifthDay.DayNumber, Forecast.City.Name);
+                    });
                 }
             }
         }
         public int CurrentCityId { get; set; }
         public Coordinates CurrentCityCoords { get; set; }
         public Thread DataFetchThread { get; set; }
+
+        private string _favoritesIcon;
+        public string FavoritesIcon
+        {
+            get
+            {
+                try
+                {
+                    if (Favorites.Favorites.Contains(Forecast.City.Name + "," + Forecast.City.Country))
+                        return "Data/icons/fullstar_icon.png";
+                    else
+                        return "Data/icons/emptystar_icon.png";
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                _favoritesIcon = value;
+            }
+        }
+
+        private string _favoritesTooltip;
+        public string FavoritesTooltip
+        {
+            get
+            {
+                try
+                {
+                    if (Favorites.Favorites.Contains(Forecast.City.Name + "," + Forecast.City.Country))
+                        return "Remove from favorites";
+                    else
+                        return "Add to favorites";
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                _favoritesTooltip = value;
+            }
+        }
 
         private string _refreshDate;
         public string RefreshDate
@@ -105,9 +188,21 @@ namespace Project
             }
         }
 
-        public ObservableCollection<string> History
+        private List<string> _history;
+        public List<string> History
         {
-            get; set;
+            get
+            {
+                return _history;
+            }
+            set
+            {
+                if (_history != value)
+                {
+                    _history = value;
+                    OnPropertyChanged("History");
+                }
+            }
         }
 
         protected virtual void OnPropertyChanged(string name)
@@ -128,7 +223,8 @@ namespace Project
 
             DataFetchThread = new Thread(new ParameterizedThreadStart(DoWork))
             {
-                IsBackground = true
+                IsBackground = true,
+                ApartmentState = ApartmentState.STA
             };
 
             if (coordinates)
@@ -157,7 +253,17 @@ namespace Project
         {
             while (true)
             {
+                if (History == null)
+                {
+                    History = new List<string>();
+                }
                 Forecast = WeatherApi.RunAsync(ID).GetAwaiter().GetResult();
+                CurrentCityId = Forecast.City.ID;
+                if (!(History.Contains(Forecast.City.Name + "," + Forecast.City.Country)))
+                {
+                    History.Add(Forecast.City.Name + "," + Forecast.City.Country);
+                    History = new List<string>(History);
+                }
                 RefreshDate = DateTime.Now.ToString(@"HH\:mm");
                 Console.WriteLine(Forecast.City.Name);
                 Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
@@ -168,7 +274,17 @@ namespace Project
         {
             while (true)
             {
+                if (History == null)
+                {
+                    History = new List<string>();
+                }
                 Forecast = WeatherApi.RunAsync(coords).GetAwaiter().GetResult();
+                CurrentCityId = Forecast.City.ID;
+                if (!(History.Contains(Forecast.City.Name + "," + Forecast.City.Country)))
+                {
+                    History.Add(Forecast.City.Name + "," + Forecast.City.Country);
+                    History = new List<string>(History);
+                }
                 RefreshDate = DateTime.Now.ToString(@"HH\:mm");
                 Console.WriteLine(Forecast.City.Name);
                 Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
@@ -197,7 +313,7 @@ namespace Project
                 Console.Write("asd");
             }
         }
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -211,62 +327,134 @@ namespace Project
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            day1View.Hide();
-            day2View.Hide();
-            day3View.Hide();
-            day4View.Hide();
-            day5View.Hide();
-
-            day1View.Show();
+            Dispatcher.Invoke(() =>
+            {
+                day1View.Hide();
+                day2View.Hide();
+                day3View.Hide();
+                day4View.Hide();
+                day5View.Hide();
+                day1View.Show();
+            });
         }
 
         private void Grid_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            day1View.Hide();
-            day2View.Hide();
-            day3View.Hide();
-            day4View.Hide();
-            day5View.Hide();
+            Dispatcher.Invoke(() =>
+            {
+                day1View.Hide();
+                day2View.Hide();
+                day3View.Hide();
+                day4View.Hide();
+                day5View.Hide();
 
-            day2View.Show();
+                day2View.Show();
+            });        
         }
 
         private void Grid_MouseDown_2(object sender, MouseButtonEventArgs e)
         {
-            day1View.Hide();
-            day2View.Hide();
-            day3View.Hide();
-            day4View.Hide();
-            day5View.Hide();
+            Dispatcher.Invoke(() =>
+            {
+                day1View.Hide();
+                day2View.Hide();
+                day3View.Hide();
+                day4View.Hide();
+                day5View.Hide();
 
-            day3View.Show();
+                day3View.Show();
+            }); 
         }
 
         private void Grid_MouseDown_3(object sender, MouseButtonEventArgs e)
         {
-            day1View.Hide();
-            day2View.Hide();
-            day3View.Hide();
-            day4View.Hide();
-            day5View.Hide();
+            Dispatcher.Invoke(() =>
+            {
+                day1View.Hide();
+                day2View.Hide();
+                day3View.Hide();
+                day4View.Hide();
+                day5View.Hide();
 
-            day4View.Show();
+                day4View.Show();
+            });
         }
 
         private void Grid_MouseDown_4(object sender, MouseButtonEventArgs e)
         {
-            day1View.Hide();
-            day2View.Hide();
-            day3View.Hide();
-            day4View.Hide();
-            day5View.Hide();
+            Dispatcher.Invoke(() =>
+            {
+                day1View.Hide();
+                day2View.Hide();
+                day3View.Hide();
+                day4View.Hide();
+                day5View.Hide();
 
-            day5View.Show();
+                day5View.Show();
+            });  
         }
 
-        private void Grid_MouseDown_5(object sender, MouseButtonEventArgs e)
+        private void Refresh(object sender, MouseButtonEventArgs e)
         {
-
+            StartThread(false);
         }
+
+        private void FavoritesHistory_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem m = (MenuItem)e.OriginalSource;
+            try
+            {
+                string data = (string)m.DataContext;
+                string[] city = data.Split(',');
+                ShowCity(city);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        private void ShowCity(string[] city)
+        {
+            CurrentCityId = Cities.AllCities.Where(c => (c.Name == city[0] && c.Country == city[1])).Select(c => c.ID).First();
+            StartThread(false);
+        }
+
+        private void Favorites_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Favorites.Favorites.Contains(Forecast.City.Name + "," + Forecast.City.Country))
+                Favorites.Favorites.Remove(Forecast.City.Name + "," + Forecast.City.Country);
+            else
+                Favorites.Favorites.Add(Forecast.City.Name + "," + Forecast.City.Country);
+            OnPropertyChanged("FavoritesIcon");
+            OnPropertyChanged("FavoritesTooltip");
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            string path = "../../Data/favorites.json";
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                sw.Write(JsonConvert.SerializeObject(Favorites));
+            }
+        }
+
+        private void SearchTxtBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                TextBox t = (TextBox)e.OriginalSource;
+                try
+                {
+                    string data = (string)t.Text;
+                    string[] city = data.Split(',');
+                    ShowCity(city);
+                }
+                catch
+                {
+                    return;
+                }
+            }
+        }  
     }
 }

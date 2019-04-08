@@ -24,6 +24,7 @@ namespace Project.Model
                 {
                     _forecast3hrs = value;
                     OnPropertyChanged("Forecast3hrs");
+                    CalculateDaysEnd();
                     OnPropertyChanged("MinTemperatureDay1");
                     OnPropertyChanged("MaxTemperatureDay1");
                     OnPropertyChanged("MinTemperatureDay2");
@@ -39,6 +40,7 @@ namespace Project.Model
                     OnPropertyChanged("ThirdDay");
                     OnPropertyChanged("FourthDay");
                     OnPropertyChanged("FifthDay");
+                    Console.WriteLine("asddd");
                 }
             }
         }
@@ -66,6 +68,18 @@ namespace Project.Model
         private int thirdDayEnd;
         private int fourthDayEnd;
         
+        public void CalculateDaysEnd()
+        {
+            int day = Forecast3hrs[0].Time.Day;
+            firstDayEnd = Forecast3hrs.Where(f => f.Time.Day == day).Count();
+            day = Forecast3hrs[firstDayEnd].Time.Day;
+            secondDayEnd = firstDayEnd + Forecast3hrs.Where(f => f.Time.Day == day).Count();
+            day = Forecast3hrs[secondDayEnd].Time.Day;
+            thirdDayEnd = secondDayEnd + Forecast3hrs.Where(f => f.Time.Day == day).Count();
+            day = Forecast3hrs[thirdDayEnd].Time.Day;
+            fourthDayEnd = thirdDayEnd + Forecast3hrs.Where(f => f.Time.Day == day).Count();
+        }
+
         public Forecast3hrs FirstDay
         {
             get
@@ -126,12 +140,81 @@ namespace Project.Model
             }
         }
 
+        public List<double> GetFirstDayTemp()
+        {
+            var firstDay = Forecast3hrs.Take(firstDayEnd);
+            List<double> dayTemp = firstDay.Select(d => d.Parameters.CurrentTemperature).ToList();
+            return dayTemp;
+        }
+
+        public List<string> GetFirstDayHours()
+        {
+            var firstDay = Forecast3hrs.Take(firstDayEnd);
+            List<string> dayHours = firstDay.Select(d => d.Time.TimeOfDay.ToString()).ToList();
+            return dayHours;
+        }
+
+        public List<double> GetSecondDayTemp()
+        {
+            var secondDay = Forecast3hrs.Skip(firstDayEnd).Take(secondDayEnd - firstDayEnd);
+            List<double> dayTemp = secondDay.Select(d => d.Parameters.CurrentTemperature).ToList();
+            return dayTemp;
+        }
+
+        public List<string> GetSecondDayHours()
+        {
+            var secondDay = Forecast3hrs.Skip(firstDayEnd).Take(secondDayEnd - firstDayEnd);
+            List<string> dayHours = secondDay.Select(d => d.Time.TimeOfDay.ToString()).ToList();
+            return dayHours;
+        }
+
+        public List<double> GetThirdDayTemp()
+        {
+            var thirdDay = Forecast3hrs.Skip(secondDayEnd).Take(thirdDayEnd - secondDayEnd);
+            List<double> dayTemp = thirdDay.Select(d => d.Parameters.CurrentTemperature).ToList();
+            return dayTemp;
+        }
+
+        public List<string> GetThirdDayHours()
+        {
+            var thirdDay = Forecast3hrs.Skip(secondDayEnd).Take(thirdDayEnd - secondDayEnd);
+            List<string> dayHours = thirdDay.Select(d => d.Time.TimeOfDay.ToString()).ToList();
+            return dayHours;
+        }
+
+        public List<double> GetFourthDayTemp()
+        {
+            var fourthDay = Forecast3hrs.Skip(thirdDayEnd).Take(fourthDayEnd - thirdDayEnd);
+            List<double> dayTemp = fourthDay.Select(d => d.Parameters.CurrentTemperature).ToList();
+            return dayTemp;
+        }
+
+        public List<string> GetFourthDayHours()
+        {
+            var fourthDay = Forecast3hrs.Skip(thirdDayEnd).Take(fourthDayEnd - thirdDayEnd);
+            List<string> dayHours = fourthDay.Select(d => d.Time.TimeOfDay.ToString()).ToList();
+            return dayHours;
+        }
+
+        public List<double> GetFifthDayTemp()
+        {
+            var fifthDay = Forecast3hrs.Skip(fourthDayEnd).Take(40 - fourthDayEnd + 1);
+            List<double> dayTemp = fifthDay.Select(d => d.Parameters.CurrentTemperature).ToList();
+            return dayTemp;
+        }
+
+        public List<string> GetFifthDayHours()
+        {
+            var fifthDay = Forecast3hrs.Skip(fourthDayEnd).Take(40 - fourthDayEnd + 1);
+            List<string> dayHours = fifthDay.Select(d => d.Time.TimeOfDay.ToString()).ToList();
+            return dayHours;
+        }
+
         public double MinTemperatureDay1
         {
             get
             {
                 int day = Forecast3hrs[0].Time.Day;
-                firstDayEnd = Forecast3hrs.Where(f => f.Time.Day == day).Count();
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Min(f => f.Parameters.MinTemperature);
             }
@@ -160,7 +243,6 @@ namespace Project.Model
             get
             {
                 int day = Forecast3hrs[firstDayEnd].Time.Day;
-                secondDayEnd = firstDayEnd + Forecast3hrs.Where(f => f.Time.Day == day).Count();
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Min(f => f.Parameters.MinTemperature);
             }
@@ -189,7 +271,6 @@ namespace Project.Model
             get
             {
                 int day = Forecast3hrs[secondDayEnd].Time.Day;
-                thirdDayEnd = secondDayEnd + Forecast3hrs.Where(f => f.Time.Day == day).Count();
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Min(f => f.Parameters.MinTemperature);
             }
@@ -218,7 +299,6 @@ namespace Project.Model
             get
             {
                 int day = Forecast3hrs[thirdDayEnd].Time.Day;
-                fourthDayEnd = thirdDayEnd + Forecast3hrs.Where(f => f.Time.Day == day).Count();
                 List<Forecast3hrs> sameDay = Forecast3hrs.Where(f => f.Time.Day == day).ToList();
                 return sameDay.Min(f => f.Parameters.MinTemperature);
             }

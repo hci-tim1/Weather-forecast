@@ -6,7 +6,7 @@
         xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
         xmlns:local="clr-namespace:Project"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="900" Background="Aqua" MinHeight="550" MinWidth="850">
+        Title="MainWindow" Height="600" Width="900" Background="Aqua" MinHeight="550" MinWidth="850" Closing="Window_Closing">
     <Window.Resources>
         <Style x:Key="OnHoverStyle" TargetType="Grid">
             <Style.Triggers>
@@ -49,7 +49,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Menu Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Menu Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" MenuItem.Click="FavoritesHistory_Click">
                     <MenuItem ItemsSource="{Binding Favorites.Favorites}">
                         <MenuItem.Header>
                             <Image Source="Data/icons/fullstarsmall_icon.png"/>
@@ -59,8 +59,8 @@
                         </MenuItem.ToolTip>
                     </MenuItem>
                 </Menu>
-                <Menu Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <MenuItem ItemsSource="{Binding History}">
+                <Menu Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" MenuItem.Click="FavoritesHistory_Click">
+                    <MenuItem ItemsSource="{Binding History, UpdateSourceTrigger=PropertyChanged}">
                         <MenuItem.Header>
                             <Image Source="Data/icons/history_icon.png"/>
                         </MenuItem.Header>
@@ -72,7 +72,7 @@
                 <Grid  Grid.Row="0" Grid.Column="2" MinHeight="30" Width="Auto">
                     <TextBox x:Name="SearchTxtBox" VerticalContentAlignment="Center"
                              Text="{Binding TestText, UpdateSourceTrigger=PropertyChanged}" 
-                             behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding Path=Cities.CitiesNames}"/>
+                             behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding Path=Cities.CitiesNames}" KeyUp="SearchTxtBox_KeyUp"/>
                     <TextBlock Grid.Row="0" Grid.Column="2" IsHitTestVisible="False" Text="Search..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" Foreground="DarkGray">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
@@ -124,14 +124,12 @@
                         <RowDefinition Height="0.5*" />
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" HorizontalAlignment="Left" Style="{StaticResource OnHoverStyle}">
-                        <Image HorizontalAlignment="Left">
+                        <Image HorizontalAlignment="Left" MouseDown="Favorites_MouseDown">
                             <Image.Source>
-                                Data/icons/emptystar_icon.png
-                                <!-- or Data/icons/fullstar_icon.png-->
+                                <Binding Path="FavoritesIcon" UpdateSourceTrigger="PropertyChanged"/>
                             </Image.Source>
                             <Image.ToolTip>
-                                Add to favorites
-                                <!-- or Remove from favorites-->
+                                <Binding Path="FavoritesTooltip" UpdateSourceTrigger="PropertyChanged"/>
                             </Image.ToolTip>
                         </Image>
                     </Grid>
@@ -164,7 +162,7 @@
                         </Viewbox>
                         <Button x:Name="RefreshButton" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" MinHeight="25" MinWidth="25">
                             <StackPanel>
-                                <Image Source="Data/icons/refresh_icon.png"/>
+                                <Image Source="Data/icons/refresh_icon.png" MouseDown="Refresh"/>
                             </StackPanel>
                         </Button>
                     </Grid>

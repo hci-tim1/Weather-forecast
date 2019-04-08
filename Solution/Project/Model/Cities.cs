@@ -15,11 +15,12 @@ namespace Project.Model
         public ObservableCollection<City> AllCities { get; set; }
 
         private IEnumerable<string> _citiesNames;
+        [JsonIgnore]
         public IEnumerable<string> CitiesNames
         {
             get
             {
-                _citiesNames = AllCities.Select(c => c.Name);
+                _citiesNames = AllCities.Select(c => c.Name + "," + c.Country);
                 return _citiesNames;
             }
             set
