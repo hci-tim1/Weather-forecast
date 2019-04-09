@@ -189,5 +189,8 @@
     <Resource Include="Data\icons\fullstarsmall_icon.png" />
     <Resource Include="Data\icons\fullstar_icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\background.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

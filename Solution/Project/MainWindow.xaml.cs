@@ -265,7 +265,7 @@ namespace Project
                     History.Add(Forecast.City.Name + "," + Forecast.City.Country);
                     History = new List<string>(History);
                 }
-                RefreshDate = DateTime.Now.ToString(@"HH\:mm");
+                RefreshDate = DateTime.Now.ToString(@"HH\:mm\:ss");
                 Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
             }
         }
@@ -285,7 +285,7 @@ namespace Project
                     History.Add(Forecast.City.Name + "," + Forecast.City.Country);
                     History = new List<string>(History);
                 }
-                RefreshDate = DateTime.Now.ToString(@"HH\:mm");
+                RefreshDate = DateTime.Now.ToString(@"HH\:mm\:ss");
                 Thread.Sleep(10 * 60 * 1000); // gets fresh data every 10mins
             }
         }

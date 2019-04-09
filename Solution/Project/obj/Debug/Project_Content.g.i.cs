@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/icons/emptystar_icon.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/icons/fullstarsmall_icon.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/icons/fullstar_icon.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/background.png")]
 
 
