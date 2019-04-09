@@ -29,7 +29,7 @@ namespace Project
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private Day1View day1View;
+        private Day1View day1View = new Day1View();
         private Day2View day2View = new Day2View();
         private Day3View day3View = new Day3View();
         private Day4View day4View = new Day4View();
@@ -54,35 +54,35 @@ namespace Project
                     var hours = Forecast.GetFirstDayHours();
                     this.Dispatcher.Invoke(() =>
                     {
-                        day1View = new Day1View(temp, hours, 
+                        day1View.RefreshGraph(temp, hours, 
                             Forecast.FirstDay.Day + " " + Forecast.FirstDay.DayNumber, Forecast.City.Name);
                     });
                     temp = Forecast.GetSecondDayTemp();
                     hours = Forecast.GetSecondDayHours();
                     this.Dispatcher.Invoke(() =>
                     {
-                        day2View = new Day2View(temp, hours,
+                        day2View.RefreshGraph(temp, hours,
                             Forecast.SecondDay.Day + " " + Forecast.SecondDay.DayNumber, Forecast.City.Name);
                     });
                     temp = Forecast.GetThirdDayTemp();
                     hours = Forecast.GetThirdDayHours();
                     this.Dispatcher.Invoke(() =>
                     {
-                        day3View = new Day3View(temp, hours,
+                        day3View.RefreshGraph(temp, hours,
                             Forecast.ThirdDay.Day + " " + Forecast.ThirdDay.DayNumber, Forecast.City.Name);
                     });
                     temp = Forecast.GetFourthDayTemp();
                     hours = Forecast.GetFourthDayHours();
                     this.Dispatcher.Invoke(() =>
                     {
-                        day4View = new Day4View(temp, hours,
+                        day4View.RefreshGraph(temp, hours,
                             Forecast.FourthDay.Day + " " + Forecast.FourthDay.DayNumber, Forecast.City.Name);
                     });
                     temp = Forecast.GetFifthDayTemp();
                     hours = Forecast.GetFifthDayHours();
                     this.Dispatcher.Invoke(() =>
                     {
-                        day5View = new Day5View(temp, hours,
+                        day5View.RefreshGraph(temp, hours,
                             Forecast.FifthDay.Day + " " + Forecast.FifthDay.DayNumber, Forecast.City.Name);
                     });
                 }
@@ -393,7 +393,8 @@ namespace Project
             try
             {
                 string data = (string)m.DataContext;
-                string[] city = data.Split(',');
+                int idx = data.LastIndexOf(',');
+                string[] city = { data.Substring(0, idx), data.Substring(idx + 1) };
                 ShowCity(city);
             }
             catch
@@ -436,7 +437,8 @@ namespace Project
                 try
                 {
                     string data = (string)t.Text;
-                    string[] city = data.Split(',');
+                    int idx = data.LastIndexOf(',');
+                    string[] city = { data.Substring(0, idx), data.Substring(idx + 1) };
                     ShowCity(city);
                 }
                 catch

@@ -22,30 +22,30 @@ namespace Project.DetailedViews
     /// </summary>
     public partial class Day3View : Window
     {
-        public Day3View(List<double> temp, List<string> hours, string day, string city)
+        public Day3View()
         {
             InitializeComponent();
             SeriesCollection = new SeriesCollection
             {
                 new LineSeries
                 {
-                    Title = day,
-                    Values = temp.AsChartValues()
+                    Title = "Day 3",
+                    Values = new ChartValues<double>()
                 }
             };
-            Title = city + ", " + day;
             Labels = new List<string>();
+            DataContext = this;
+        }
+
+        public void RefreshGraph(List<double> temp, List<string> hours, string day, string city)
+        {
+            SeriesCollection[0].Values = temp.AsChartValues();
+            Labels = new List<string>();
+            Title = city + ", " + day;
             foreach (string hour in hours)
             {
                 Labels.Add(hour.Substring(0, 5));
             }
-
-            DataContext = this;
-        }
-
-        public Day3View()
-        {
-            InitializeComponent();
         }
         public SeriesCollection SeriesCollection { get; set; }
         public List<string> Labels { get; set; }
