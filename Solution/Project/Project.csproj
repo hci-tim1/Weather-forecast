@@ -192,5 +192,8 @@
   <ItemGroup>
     <Resource Include="Data\background.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\icons\favicon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

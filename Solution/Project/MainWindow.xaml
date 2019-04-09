@@ -6,7 +6,7 @@
         xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
         xmlns:local="clr-namespace:Project"
         mc:Ignorable="d"
-        Title="MainWindow" Height="630" Width="900" MinHeight="600" MinWidth="850" Closing="Window_Closing" FontFamily="Century gothic">
+        Title="WeatherApp" Icon="Data/icons/favicon.png" Height="630" Width="900" MinHeight="600" MinWidth="850" Closing="Window_Closing" FontFamily="Century gothic"> 
     <Window.Background>
         <ImageBrush ImageSource="Data/background.png"></ImageBrush>
     </Window.Background>
